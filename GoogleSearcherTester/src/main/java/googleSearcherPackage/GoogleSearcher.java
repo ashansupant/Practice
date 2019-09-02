@@ -6,14 +6,24 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import static org.apache.commons.lang3.SystemUtils.IS_OS_WINDOWS;
+import static org.apache.commons.lang3.SystemUtils.IS_OS_MAC;
 
 public class GoogleSearcher
 {
   public static void main( String[] args )
   {
     WebDriver driver;
-    System.setProperty("webdriver.chrome.driver", "Drivers/chromedriver.exe");
-    driver = new ChromeDriver();	
+	
+	if (IS_OS_WINDOWS) {
+    System.setProperty("webdriver.chrome.driver", "Drivers/chromedriver_win.exe");
+    }
+	
+	if (IS_OS_MAC) {
+	System.setProperty("webdriver.chrome.driver", "Drivers/chromedriver_mac");
+	}
+	
+	driver = new ChromeDriver();	
     driver.get("https://www.google.com/");
     driver.findElement(By.name("q")).sendKeys(args);
 	driver.findElement(By.name("q")).submit();			
